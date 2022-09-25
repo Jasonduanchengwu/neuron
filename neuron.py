@@ -1,9 +1,8 @@
-from operator import ne
 from random import random
 from io import open
 from pathlib import Path
 
-class neuronBot:
+class NeuronBot:
     def __init__(self):
         # Preset parameters
         self.cat_num = 10
@@ -13,20 +12,40 @@ class neuronBot:
 
         # Initialization
         self.weights = [[0 for i in range(self.weights_count)] for j in range(self.cat_num)]
+        self.current_coords = [0 for i in range(self.weights_count)]
         self.expected_outputs = [0  for i in range(self.cat_num)]
         self.calculated_outputs = [0  for i in range(self.cat_num)]
-        self.current_coords = [0 for i in range(self.weights_count)]
-
+        
     def update_coords(self, coords):
         self.current_coords[0] = coords[0]
         self.current_coords[1] = coords[1]
+        return
 
     def allocate_category(self, cat_val):
-        if cat_val == "Asia":
+        if cat_val == "Africa":
+            return 0
+        elif cat_val == "America":
+            return 1
+        elif cat_val == "Antarctica":
+            return 2
+        elif cat_val == "Asia":
             return 3
-
+        elif cat_val == "Australia":
+            return 4
+        elif cat_val == "Europe":
+            return 5
+        elif cat_val == "Arctic":
+            return 6
+        elif cat_val == "Atlantic":
+            return 7
+        elif cat_val == "Indian":
+            return 8
+        elif cat_val == "Pacific":
+            return 9
+        else: return -1
     def update_outputs(self, category):
         self.expected_outputs[self.allocate_category(category)] = 1
+        return
 
     def update_weights(self):
         pass
@@ -45,12 +64,12 @@ class neuronBot:
         ex_outputs = training_file.readline().split()[-1]
 
         # Always gonna be number of weights + 1 amount of data
-        # print(coords, ex_output)
         self.update_coords(self.normalize_coords(coords))
         self.update_outputs(ex_outputs)
+        return
     
 def main():
-    neuron_bot = neuronBot()
+    neuron_bot = NeuronBot()
     file_path = Path('nnTrainData.txt')
     neuron_bot.parse_data(str(file_path))
     return
