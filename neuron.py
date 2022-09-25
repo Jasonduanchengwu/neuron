@@ -15,7 +15,12 @@ class NeuronBot:
         self.current_coords = [0 for i in range(self.weights_count)]
         self.expected_outputs = [0  for i in range(self.cat_num)]
         self.calculated_outputs = [0  for i in range(self.cat_num)]
-        
+    
+    def initialize_weights(self):
+        for i in range(self.cat_num):
+            weights[i][0] = w[i][0] + learning_rate * (correct_output[i] - output[i]) * x
+            weights[i][1] = w[i][1] + learning_rate * (correct_output[i] - output[i]) * y
+
     def update_coords(self, coords):
         self.current_coords[0] = coords[0]
         self.current_coords[1] = coords[1]
@@ -43,12 +48,16 @@ class NeuronBot:
         elif cat_val == "Pacific":
             return 9
         else: return -1
+
     def update_outputs(self, category):
         self.expected_outputs[self.allocate_category(category)] = 1
         return
 
     def update_weights(self):
-        pass
+        # learning_rate = 0.5
+        for i in range(self.cat_num):
+            self.weights[i][0] = self.weights[i][0] + 0.5 * (self.expected_outputs[i] - self.calculated_outputs[i]) * self.current_coords[0]
+            self.weights[i][1] = self.weights[i][1] + 0.5 * (self.expected_outputs[i] - self.calculated_outputs[i]) * self.current_coords[1]
 
     def normalize_coords(self, coords):
         coords[0]=round((float(coords[0])-self.x_min)/self.x_range,6)
