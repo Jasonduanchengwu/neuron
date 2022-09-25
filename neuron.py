@@ -5,6 +5,7 @@ from pathlib import Path
 class neuronBot:
     def __init__(self) -> None:
         self.weights = [[0 for i in range(2)] for j in range(10)]
+        self.outputs = [[0 for i in range(2)] for j in range(10)]
         
     def read_data(self, file_path):
         training_file = open(file_path, "r")
