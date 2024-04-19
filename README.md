@@ -1,2 +1,2 @@
-# Supervised NeuronBot
-- learns to categorizes data with correct categorization
+# NeuronBot
+- A supervised perceptron that classifizes data with gradient descend and weights
